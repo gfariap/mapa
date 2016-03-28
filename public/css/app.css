@@ -1,0 +1,58 @@
+html,
+body {
+  height: 100%;
+  margin: 0;
+  padding: 0;
+}
+#map {
+  height: 100%;
+}
+#app-layout .container {
+  margin-top: 50px;
+}
+.image-container {
+  overflow: hidden;
+}
+.image-container img {
+  max-width: 100%;
+}
+.search-box {
+  position: fixed;
+  top: 30px;
+  left: 30px;
+}
+.search-box .closed {
+  display: block;
+}
+.search-box .opened {
+  display: none;
+}
+.search-box.open .closed {
+  display: none;
+}
+.search-box.open .opened {
+  display: block;
+}
+.offcanvas {
+  width: 600px;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  -webkit-transform: translateX(600px);
+  transform: translateX(600px);
+  border-radius: 0px !important;
+  margin-bottom: 0px !important;
+}
+.offcanvas img {
+  max-width: 100%;
+}
+body.offcanvas-open .offcanvas {
+  -webkit-transform: translateX(0px);
+  transform: translateX(0px);
+}
+body.offcanvas-open #map {
+  margin-right: 600px;
+}
+
+/*# sourceMappingURL=app.css.map */

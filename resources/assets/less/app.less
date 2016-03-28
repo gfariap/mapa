@@ -1,0 +1,72 @@
+html, body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+#map {
+	height: 100%;
+}
+
+#app-layout {
+	.container {
+		margin-top: 50px
+	}
+}
+
+.image-container {
+	overflow: hidden;
+
+	img {
+		max-width: 100%;
+	}
+}
+
+.search-box {
+	position: fixed;
+	top: 30px;
+	left: 30px;
+
+	.closed {
+		display: block;
+	}
+
+	.opened {
+		display: none;
+	}
+
+	&.open {
+		.closed {
+			display: none;
+		}
+
+		.opened {
+			display: block;
+		}
+	}
+}
+
+.offcanvas {
+	width: 600px;
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	transform: translateX(600px);
+	border-radius: 0px !important;
+	margin-bottom: 0px !important;
+
+	img {
+		max-width: 100%;
+	}
+}
+
+body.offcanvas-open {
+	.offcanvas {
+		transform: translateX(0px);
+	}
+
+	#map {
+	    margin-right: 600px;
+	}
+}
