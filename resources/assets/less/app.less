@@ -1,72 +1,43 @@
-html, body {
-	height: 100%;
-	margin: 0;
-	padding: 0;
-}
+/**
+ * This is the main application stylesheet. It should include or import all
+ * stylesheets used throughout the application as this is the only stylesheet in
+ * the Grunt configuration that is automatically processed.
+ */
 
-#map {
-	height: 100%;
-}
+/**
+ * First, we include the Twitter Bootstrap LESS files. Only the ones used in the
+ * project should be imported as the rest are just wasting space.
+ */
 
-#app-layout {
-	.container {
-		margin-top: 50px
-	}
-}
+@import "../../../node_modules/bootstrap/less/bootstrap.less";
+@import (inline) "../../../node_modules/select2/dist/css/select2.min.css";
+@import "../../../node_modules/select2-bootstrap-theme/src/select2-bootstrap.less";
+@import "../../../node_modules/font-awesome/less/font-awesome.less";
 
-.image-container {
-	overflow: hidden;
+/**
+ * This is our main variables file. It in turn imports the `variables` file from
+ * Twitter Bootstrap. We must include it last so we can overwrite any variable
+ * definitions in our imported stylesheets.
+ */
 
-	img {
-		max-width: 100%;
-	}
-}
+@import "variables.less";
+@import "overwrites.less";
+@import "vendor.less";
+@import "helpers.less";
+@import "fonts.less";
 
-.search-box {
-	position: fixed;
-	top: 30px;
-	left: 30px;
+/**
+ * Páginas
+ */
 
-	.closed {
-		display: block;
-	}
 
-	.opened {
-		display: none;
-	}
+/**
+ * Componentes
+ */
 
-	&.open {
-		.closed {
-			display: none;
-		}
-
-		.opened {
-			display: block;
-		}
-	}
-}
-
-.offcanvas {
-	width: 600px;
-	position: fixed;
-	top: 0;
-	right: 0;
-	bottom: 0;
-	transform: translateX(600px);
-	border-radius: 0px !important;
-	margin-bottom: 0px !important;
-
-	img {
-		max-width: 100%;
-	}
-}
-
-body.offcanvas-open {
-	.offcanvas {
-		transform: translateX(0px);
-	}
-
-	#map {
-	    margin-right: 600px;
-	}
-}
+@import "componentes/off-canvas.less";
+@import "componentes/search-box.less";
+@import "componentes/sweet-alert.less";
+@import "componentes/inline-button.less";
+@import "componentes/panel-preview.less";
+@import "componentes/sidebar.less";

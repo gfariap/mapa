@@ -1,0 +1,50 @@
+.actions {
+  text-align: right;
+
+  form & {
+    .btn:not(:first-child) {
+      margin-left: 10px;
+    }
+  }
+
+  &.min-width {
+    width: 1px;
+    white-space: nowrap;
+  }
+
+  form {
+    display: inline-block;
+  }
+}
+
+.text-align-right {
+  text-align: right;
+}
+
+.hidden {
+  display: none !important;
+}
+
+.texto-vermelho {
+  color: @brand-danger;
+}
+
+.no-results {
+  background-color: @corCinzaMaisClaro;
+  border-radius: 8px;
+  border-color: @corCinzaQuaseClaro;
+  box-shadow: none !important;
+
+  p {
+    margin-bottom: 0;
+  }
+}
+
+.paginator {
+  .clearfix;
+}
+
+.total {
+  margin: 5px 0;
+  padding-top: 10px;
+}

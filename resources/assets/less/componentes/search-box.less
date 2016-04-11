@@ -1,0 +1,23 @@
+.search-box {
+  position: fixed;
+  top: 30px;
+  left: 30px;
+
+  .closed {
+    display: block;
+  }
+
+  .opened {
+    display: none;
+  }
+
+  &.open {
+    .closed {
+      display: none;
+    }
+
+    .opened {
+      display: block;
+    }
+  }
+}

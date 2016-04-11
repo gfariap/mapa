@@ -26,12 +26,37 @@ Route::get('/', function () {
 |
 */
 
-Route::group(['middleware' => ['web']], function () {
-    //
+Route::group([ 'middleware' => [ 'web', 'auth' ] ], function () {
+    Route::group([ 'prefix' => 'empreendimentos', 'as' => 'empreendimentos.' ], function () {
+        Route::get('/', [ 'as' => 'index', 'uses' => 'EmpreendimentosController@index' ]);
+        Route::get('incluir', [ 'as' => 'create', 'uses' => 'EmpreendimentosController@create' ]);
+        Route::get('{id}/editar', [ 'as' => 'edit', 'uses' => 'EmpreendimentosController@edit' ]);
+        Route::post('/', [ 'as' => 'store', 'uses' => 'EmpreendimentosController@store' ]);
+        Route::put('{id}', [ 'as' => 'update', 'uses' => 'EmpreendimentosController@update' ]);
+        Route::delete('{id}', [ 'as' => 'destroy', 'uses' => 'EmpreendimentosController@destroy' ]);
+
+        Route::group([ 'prefix' => '{id}/colunas', 'as' => 'colunas.' ], function () {
+            Route::get('incluir', [ 'as' => 'create', 'uses' => 'ColunasController@create' ]);
+            Route::get('{coluna_id}/editar', [ 'as' => 'edit', 'uses' => 'ColunasController@edit' ]);
+            Route::get('{coluna_id}', [ 'as' => 'show', 'uses' => 'ColunasController@show' ]);
+            Route::post('/', [ 'as' => 'store', 'uses' => 'ColunasController@store' ]);
+            Route::put('{coluna_id}', [ 'as' => 'update', 'uses' => 'ColunasController@update' ]);
+            Route::delete('{coluna_id}', [ 'as' => 'destroy', 'uses' => 'ColunasController@destroy' ]);
+        });
+    });
+
+    Route::group([ 'prefix' => 'anuncios', 'as' => 'anuncios.' ], function () {
+        Route::get('/', [ 'as' => 'index', 'uses' => 'AnunciosController@index' ]);
+        Route::get('incluir', [ 'as' => 'create', 'uses' => 'AnunciosController@create' ]);
+        Route::get('{id}/editar', [ 'as' => 'edit', 'uses' => 'AnunciosController@edit' ]);
+        Route::post('/', [ 'as' => 'store', 'uses' => 'AnunciosController@store' ]);
+        Route::put('{id}', [ 'as' => 'update', 'uses' => 'AnunciosController@update' ]);
+        Route::delete('{id}', [ 'as' => 'destroy', 'uses' => 'AnunciosController@destroy' ]);
+    });
 });
 
-Route::group(['middleware' => 'web'], function () {
+Route::group([ 'middleware' => 'web' ], function () {
     Route::auth();
 
-    Route::get('/home', 'HomeController@index');
+    Route::get('/home', [ 'as' => 'home', 'uses' => 'HomeController@index' ]);
 });

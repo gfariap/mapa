@@ -1,0 +1,65 @@
+.content {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  overflow: auto;
+
+  @media (min-width: @screen-md-min) {
+    left: 50px;
+  }
+
+  @media (min-width: @screen-lg-min) {
+    left: 60px;
+  }
+}
+
+.table {
+  thead {
+    tr {
+      td, th {
+        white-space: nowrap;
+
+        a {
+          font-family: inherit;
+          font-size: inherit;
+        }
+
+        i.fa {
+          color: @link-color;
+        }
+      }
+    }
+  }
+
+  tbody {
+    tr {
+      td {
+        color: @corCinzaEscuro;
+
+        &:only-child {
+          padding: 0 0 10px 20px;
+          background-color: @corCinzaMaisClaro;
+
+          .table {
+            margin-bottom: 0;
+            background-color: transparent;
+
+            thead {
+              tr {
+                td, th {
+                  font-size: 14px;
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+.select2-container--bootstrap {
+  width: 100% !important;
+}

@@ -1,0 +1,24 @@
+.offcanvas {
+  width: 600px;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  transform: translateX(600px);
+  border-radius: 0px !important;
+  margin-bottom: 0px !important;
+
+  img {
+    max-width: 100%;
+  }
+}
+
+body.offcanvas-open {
+  .offcanvas {
+    transform: translateX(0px);
+  }
+
+  #map {
+    margin-right: 600px;
+  }
+}

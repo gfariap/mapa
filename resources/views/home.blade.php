@@ -87,6 +87,41 @@
     <script type="text/javascript" src="https://google-maps-utility-library-v3.googlecode.com/svn/trunk/maplabel/src/maplabel-compiled.js"></script>
     <script>
       var map;
+      var markers = [];
+
+      // Adds a marker to the map and push to the array.
+      function addMarker(location, title) {
+        var marker = new google.maps.Marker({
+          position: location,
+          map: map,
+          title: title
+        });
+        markers.push(marker);
+      }
+
+      // Sets the map on all markers in the array.
+      function setMapOnAll(map) {
+        for (var i = 0; i < markers.length; i++) {
+          markers[i].setMap(map);
+        }
+      }
+
+      // Removes the markers from the map, but keeps them in the array.
+      function clearMarkers() {
+        setMapOnAll(null);
+      }
+
+      // Shows any markers currently in the array.
+      function showMarkers() {
+        setMapOnAll(map);
+      }
+
+      // Deletes all markers in the array by removing references to them.
+      function deleteMarkers() {
+        clearMarkers();
+        markers = [];
+      }
+
       $(document).ready(function() {
         $(".closed, #pesquisar").click(function() {
           $('.search-box').toggleClass('open');
@@ -156,56 +191,55 @@
             align: 'center'
           });
 
-          var markerCoord = new google.maps.LatLng(-20.2802534, -40.2884154);
+          polygonLabel.setMap(map);
 
-          var marker = new google.maps.Marker({
-            position: markerCoord,
-            title: 'Condomínio Paradise Island'
-          });
+          @foreach ($empreendimentos as $empreendimento)
+            addMarker({ lat: {{ $empreendimento->latitude }}, lng: {{ $empreendimento->longitude }} }, "{!! $empreendimento->nome !!}");
+          @endforeach
 
-          var contentString = '<div class="col-xs-6 image-container">'+
-            '<img src="{{ asset('img/fachada.jpg') }}" alt="Condomínio Paradise Island" />'+
-            '</div>'+
-            '<div class="col-xs-6">'+
-            '<h3>Condomínio Paradise Island</h3>'+
-            '<p class="form-control-static">Quantidade de Quartos e Suítes: 4q/4s</p>'+
-            '<p class="form-control-static">Área Privativa: Col 1 - 229,24m² / Col 2 - 227,87m²</p>'+
-            '<p class="form-control-static">Apartamentos por andar: 2</p>'+
-            '<p class="form-control-static">Idade do Projeto: 1996</p>'+
-            '<h4>Anúncios</h4>'+
-            '<div class="list-group">'+
-            '<a href="#" class="list-group-item">Apartamento 101</a>'+
-            '<a href="#" class="list-group-item">Apartamento 102</a>'+
-            '</div>'+
-            '</div>';
+          {{--var contentString = '<div class="col-xs-6 image-container">'+--}}
+            {{--'<img src="{{ asset('img/fachada.jpg') }}" alt="Condomínio Paradise Island" />'+--}}
+            {{--'</div>'+--}}
+            {{--'<div class="col-xs-6">'+--}}
+            {{--'<h3>Condomínio Paradise Island</h3>'+--}}
+            {{--'<p class="form-control-static">Quantidade de Quartos e Suítes: 4q/4s</p>'+--}}
+            {{--'<p class="form-control-static">Área Privativa: Col 1 - 229,24m² / Col 2 - 227,87m²</p>'+--}}
+            {{--'<p class="form-control-static">Apartamentos por andar: 2</p>'+--}}
+            {{--'<p class="form-control-static">Idade do Projeto: 1996</p>'+--}}
+            {{--'<h4>Anúncios</h4>'+--}}
+            {{--'<div class="list-group">'+--}}
+            {{--'<a href="#" class="list-group-item">Apartamento 101</a>'+--}}
+            {{--'<a href="#" class="list-group-item">Apartamento 102</a>'+--}}
+            {{--'</div>'+--}}
+            {{--'</div>';--}}
 
-          var infowindow = new google.maps.InfoWindow({
-            content: contentString
-          });
+          {{--var infowindow = new google.maps.InfoWindow({--}}
+            {{--content: contentString--}}
+          {{--});--}}
 
-          google.maps.event.addListener(map, "zoom_changed", function() {
-            if (map.getZoom() > 17) {
-                marker.setMap(map); 
-                polygonLabel.setMap(null);
-            } else {
-                marker.setMap(null);
-                polygonLabel.setMap(map);
-            }
-          });
+//          google.maps.event.addListener(map, "zoom_changed", function() {
+//            if (map.getZoom() > 17) {
+//                marker.setMap(map);
+//                polygonLabel.setMap(null);
+//            } else {
+//                marker.setMap(null);
+//                polygonLabel.setMap(map);
+//            }
+//          });
 
-          map.addListener('click', function() {
-            infowindow.close();
-            $('body').removeClass('offcanvas-open');
-          });
-
-          marker.addListener('click', function() {
-            infowindow.open(map, marker);
-          });
-
-          $('body').on('click', '.list-group-item', function() {
-            $('body').addClass('offcanvas-open');
-            map.setCenter(new google.maps.LatLng(markerCoord.lat() + 0.002, markerCoord.lng() + 0.001));
-          });
+//          map.addListener('click', function() {
+//            infowindow.close();
+//            $('body').removeClass('offcanvas-open');
+//          });
+//
+//          marker.addListener('click', function() {
+//            infowindow.open(map, marker);
+//          });
+//
+//          $('body').on('click', '.list-group-item', function() {
+//            $('body').addClass('offcanvas-open');
+//            map.setCenter(new google.maps.LatLng(markerCoord.lat() + 0.002, markerCoord.lng() + 0.001));
+//          });
       });
     </script>
 @endsection
