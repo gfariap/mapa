@@ -10,7 +10,7 @@
         {!! Form::text('titulo', null, ['class' => 'form-control']) !!}
     </div>
     <div class="form-group col-md-3 col-sm-4">
-        {!! Form::label('finalidade', 'Área') !!} <b class="texto-vermelho">*</b>
+        {!! Form::label('finalidade', 'Finalidade') !!} <b class="texto-vermelho">*</b>
         {!! Form::select('finalidade', \App\ValueObjects\FinalidadeAnuncio::listForDropdown(), null, ['class' => 'form-control', 'data-dropdown']) !!}
     </div>
 </div>

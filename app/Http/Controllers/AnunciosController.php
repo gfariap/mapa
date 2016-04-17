@@ -47,7 +47,7 @@ class AnunciosController extends Controller
     {
         $anuncio = Anuncio::findOrFail($id);
 
-        return view('anucios.edit', compact('anuncio'));
+        return view('anuncios.edit', compact('anuncio'));
     }
 
 
