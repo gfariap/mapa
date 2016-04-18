@@ -1,15 +1,40 @@
 .offcanvas {
-  width: 600px;
+  width: 500px;
   position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
-  transform: translateX(600px);
+  transform: translateX(500px);
   border-radius: 0px !important;
   margin-bottom: 0px !important;
+  overflow-y: auto;
+  border-left: 1px solid @corCinzaMuitoEscuro;
+  box-shadow: 0 0px 8px rgba(0, 0, 0, 0.3);
 
   img {
     max-width: 100%;
+  }
+
+  .offcanvas-close {
+    position: absolute;
+    top: 5px;
+    right: 5px;
+    width: 25px;
+    height: 25px;
+    -webkit-border-radius: 50%;
+    -moz-border-radius: 50%;
+    border-radius: 50%;
+    font-size: 16px;
+    padding: 0;
+    line-height: 21px;
+  }
+
+  .offcanvas-header {
+    margin-top: 5px;
+  }
+
+  .list-group {
+    margin-bottom: 0;
   }
 }
 
@@ -19,6 +44,6 @@ body.offcanvas-open {
   }
 
   #map {
-    margin-right: 600px;
+    margin-right: 500px;
   }
 }

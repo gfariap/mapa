@@ -64,6 +64,18 @@ class EmpreendimentosController extends Controller
     }
 
 
+    public function show(Request $request, $id)
+    {
+        $empreendimento = Empreendimento::findOrFail($id);
+
+        if ($request->has('full')) {
+            return view('empreendimentos.details', compact('empreendimento'));
+        }
+
+        return view('empreendimentos.teaser', compact('empreendimento'));
+    }
+
+
     public function store(EmpreendimentoFormRequest $request)
     {
         $nomeDoArquivo = $this->gerenciadorDeImagens->salvarFachadaDeEmpreendimento($request->file('fachada'),

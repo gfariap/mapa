@@ -1,7 +1,12 @@
 @extends ('layouts.forms')
 @inject ('helpers', 'App\ViewServices\HelpersViewService')
 
-@section ('title', 'Empreendimentos')
+@section ('title')
+    Empreendimentos
+    <div class="actions pull-right">
+        {!! link_to_route('empreendimentos.create', 'Cadastrar empreendimento', [], [ 'class' => 'btn btn-primary' ]) !!}
+    </div>
+@endsection
 
 @section ('content')
     <h3 class="page-header">Filtros de busca</h3>
@@ -87,8 +92,4 @@
         <div class="well no-results"><p>Nenhum empreendimento foi encontrado utilizando os filtros informados.</p></div>
     @endif
     @include ('partials.pagination', [ 'collection' => $empreendimentos ])
-    <hr/>
-    <div class="actions form-group">
-        {!! link_to_route('empreendimentos.create', 'Cadastrar empreendimento', [], [ 'class' => 'btn btn-primary' ]) !!}
-    </div>
 @endsection

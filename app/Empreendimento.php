@@ -29,6 +29,13 @@ class Empreendimento extends BaseModel
         'longitude'
     ];
 
+    /**
+     * The accessors to append to the model's array form.
+     *
+     * @var array
+     */
+    protected $appends = ['fachada_thumbnail'];
+
 
     /**
      * Possui várias colunas que representam a estrutura dos apartamentos
@@ -75,7 +82,7 @@ class Empreendimento extends BaseModel
      */
     public function getFachadaComCaminhoAttribute()
     {
-        return '/img/fachadas/' . $this->attributes['fachada'];
+        return 'img/fachadas/' . $this->attributes['fachada'];
     }
 
 
@@ -86,7 +93,7 @@ class Empreendimento extends BaseModel
      */
     public function getFachadaThumbnailAttribute()
     {
-        return '/img/fachadas/thumb/' . $this->attributes['fachada'];
+        return 'img/fachadas/thumb/' . $this->attributes['fachada'];
     }
 
 }

@@ -9372,6 +9372,7 @@ body {
   margin: 0;
   padding: 0;
 }
+#mapa-imoveis,
 #map {
   height: 100%;
 }
@@ -9383,6 +9384,14 @@ body {
 }
 .image-container img {
   max-width: 100%;
+}
+.gm-style-iw {
+  font-size: 14px !important;
+  font-weight: 400 !important;
+  margin: 2px 0 0 -3px;
+}
+.gm-style-iw div {
+  overflow: hidden !important;
 }
 .content {
   position: fixed;
@@ -9449,6 +9458,9 @@ form .actions .btn:not(:first-child) {
 .text-align-right {
   text-align: right;
 }
+.text-align-center {
+  text-align: center;
+}
 .hidden {
   display: none !important;
 }
@@ -9484,6 +9496,14 @@ form .actions .btn:not(:first-child) {
   margin: 5px 0;
   padding-top: 10px;
 }
+.btn-details {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+}
+.no-padding-left {
+  padding-left: 0 !important;
+}
 @font-face {
   font-family: 'MontSerrat';
   src: url('../fonts/montserrat-bold-webfont.eot');
@@ -9512,25 +9532,45 @@ form .actions .btn:not(:first-child) {
  * Componentes
  */
 .offcanvas {
-  width: 600px;
+  width: 500px;
   position: fixed;
   top: 0;
   right: 0;
   bottom: 0;
-  -webkit-transform: translateX(600px);
-  transform: translateX(600px);
+  -webkit-transform: translateX(500px);
+  transform: translateX(500px);
   border-radius: 0px !important;
   margin-bottom: 0px !important;
+  overflow-y: auto;
+  border-left: 1px solid #333333;
+  box-shadow: 0 0px 8px rgba(0, 0, 0, 0.3);
 }
 .offcanvas img {
   max-width: 100%;
+}
+.offcanvas .offcanvas-close {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  width: 25px;
+  height: 25px;
+  border-radius: 50%;
+  font-size: 16px;
+  padding: 0;
+  line-height: 21px;
+}
+.offcanvas .offcanvas-header {
+  margin-top: 5px;
+}
+.offcanvas .list-group {
+  margin-bottom: 0;
 }
 body.offcanvas-open .offcanvas {
   -webkit-transform: translateX(0px);
   transform: translateX(0px);
 }
 body.offcanvas-open #map {
-  margin-right: 600px;
+  margin-right: 500px;
 }
 .search-box {
   position: fixed;

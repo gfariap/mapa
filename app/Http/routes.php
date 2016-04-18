@@ -31,6 +31,7 @@ Route::group([ 'middleware' => [ 'web', 'auth' ] ], function () {
         Route::get('/', [ 'as' => 'index', 'uses' => 'EmpreendimentosController@index' ]);
         Route::get('incluir', [ 'as' => 'create', 'uses' => 'EmpreendimentosController@create' ]);
         Route::get('{id}/editar', [ 'as' => 'edit', 'uses' => 'EmpreendimentosController@edit' ]);
+        Route::get('{id}', [ 'as' => 'show', 'uses' => 'EmpreendimentosController@show' ]);
         Route::post('/', [ 'as' => 'store', 'uses' => 'EmpreendimentosController@store' ]);
         Route::put('{id}', [ 'as' => 'update', 'uses' => 'EmpreendimentosController@update' ]);
         Route::delete('{id}', [ 'as' => 'destroy', 'uses' => 'EmpreendimentosController@destroy' ]);

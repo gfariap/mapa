@@ -24,6 +24,7 @@ elixir(function(mix) {
         '../../../node_modules/jquery.inputmask/dist/inputmask/inputmask.js',
         '../../../node_modules/jquery.inputmask/dist/inputmask/jquery.inputmask.js',
         '../../../node_modules/jquery-maskmoney/dist/jquery.maskMoney.min.js',
+        '../../../node_modules/vue/dist/vue.min.js',
         '../../../resources/assets/js/app.js'
     ], 'public/js/app.js');
 });
