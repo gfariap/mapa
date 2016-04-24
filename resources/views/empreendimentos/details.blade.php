@@ -1,6 +1,8 @@
 <div class="row">
     <div class="col-sm-4 form-group">
-        <img src="{{ asset($empreendimento->fachada_thumbnail) }}" alt="{{ $empreendimento->nome }}">
+        <a href="{{ asset($empreendimento->fachada_com_caminho) }}" class="fancybox" rel="gallery" title="{{ $empreendimento->nome }} - Fachada">
+            <img src="{{ asset($empreendimento->fachada_thumbnail) }}" alt="{{ $empreendimento->nome }}">
+        </a>
     </div>
     <div class="col-sm-8 no-padding-left">
         <div class="col-xs-12">
@@ -26,7 +28,9 @@
                 </div>
                 <div class="panel-body">
                     <div class="text-align-center form-group">
-                        <img src="{{ asset($coluna->planta_thumbnail) }}" alt="{{ $coluna->titulo }}">
+                        <a href="{{ asset($coluna->planta_com_caminho) }}" class="fancybox" rel="gallery" title="{{ $empreendimento->nome }} - {{ $coluna->titulo }}">
+                            <img src="{{ asset($coluna->planta_thumbnail) }}" alt="{{ $coluna->titulo }}">
+                        </a>
                     </div>
                     <div class="form-group">
                         <p class="form-control-static">Área: {{ $coluna->area }} m²</p>
@@ -59,3 +63,6 @@
 <button class="offcanvas-close btn btn-default" title="Fechar" data-close>
     <i class="fa fa-times"></i>
 </button>
+<script>
+    $('.fancybox').fancybox();
+</script>

@@ -13,6 +13,8 @@ var elixir = require('laravel-elixir');
 
 elixir(function(mix) {
     mix.copy('node_modules/font-awesome/fonts', 'public/fonts');
+    mix.copy('node_modules/jquery-fancybox/source/helpers/fancybox_buttons.png', 'public/img');
+    mix.copy('node_modules/jquery-fancybox/source/img', 'public/img');
     mix.less('app.less');
     mix.scripts([
         '../../../node_modules/jquery/dist/jquery.min.js',
@@ -24,6 +26,9 @@ elixir(function(mix) {
         '../../../node_modules/jquery.inputmask/dist/inputmask/inputmask.js',
         '../../../node_modules/jquery.inputmask/dist/inputmask/jquery.inputmask.js',
         '../../../node_modules/jquery-maskmoney/dist/jquery.maskMoney.min.js',
+        '../../../node_modules/jquery-fancybox/source/js/jquery.fancybox.js',
+        '../../../node_modules/jquery-fancybox/source/helpers/jquery.fancybox-buttons.js',
+        '../../../node_modules/jquery-fancybox/source/helpers/jquery.fancybox-media.js',
         '../../../node_modules/vue/dist/vue.min.js',
         '../../../resources/assets/js/app.js'
     ], 'public/js/app.js');

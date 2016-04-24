@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-  <div id="mapa-imoveis" empreendimentos='{!! json_encode($empreendimentos) !!}'>
+  <div id="mapa-imoveis" empreendimentos='{!! str_replace("'", "\\u0027", json_encode($empreendimentos)) !!}'>
     <div id="map"></div>
     {{--<div class="search-box panel panel-body">--}}
       {{--<div class="closed">--}}

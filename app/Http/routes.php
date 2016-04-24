@@ -61,3 +61,7 @@ Route::group([ 'middleware' => 'web' ], function () {
 
     Route::get('/home', [ 'as' => 'home', 'uses' => 'HomeController@index' ]);
 });
+
+Route::get('{any?}', function ($any = null) {
+    return redirect()->route('empreendimentos.index');
+})->where('any', '.*');

@@ -5,6 +5,7 @@
     "font-awesome": "^4.5.0",
     "gulp": "^3.8.8",
     "jquery": "^2.2.3",
+    "jquery-fancybox": "^3.0.0",
     "jquery-maskmoney": "^3.0.2",
     "jquery.inputmask": "^3.3.0",
     "moment": "^2.12.0",

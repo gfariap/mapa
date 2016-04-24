@@ -144,6 +144,9 @@ $(document).ready(function () {
                     marker.addListener('click', function() {
                         var that = this;
                         $.get('empreendimentos/'+this.identifier, function(data) {
+                            if (window.mapaImoveis.infoWindow != null) {
+                                window.mapaImoveis.infoWindow.close();
+                            }
                             window.mapaImoveis.infoWindow = new google.maps.InfoWindow({
                                 content: data
                             });
@@ -239,7 +242,6 @@ $(document).ready(function () {
 
                     for (var i = 0; i < lista.length; i++) {
                         this.addMarker(lista[i]);
-                        console.log(lista[i]);
                     }
 
                     this.map.addListener('click', function() {
