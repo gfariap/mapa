@@ -46,6 +46,8 @@ class EmpreendimentosController extends Controller
     {
         $search = Empreendimento::leftJoin('colunas', 'colunas.empreendimento_id', '=', 'empreendimentos.id')
             ->leftJoin('anuncios', 'anuncios.coluna_id', '=', 'colunas.id')
+            ->whereNull('colunas.deleted_at')
+            ->whereNull('anuncios.deleted_at')
             ->orderBy($this->getOrderBy($params, 'id'), $this->getOrder($params, 'desc'))
             ->select([ 'empreendimentos.*' ]);
 
@@ -65,10 +67,16 @@ class EmpreendimentosController extends Controller
             $search->where('colunas.area', '<=', $params['area_maior']);
         }
         if (isset( $params['valor_menor'] )) {
-            $search->where('anuncios.valor', '>=', $params['valor_menor']);
+            $search->where(function ($query) use ($params) {
+                $query->whereDoesntHave('anuncios')
+                    ->orWhere('anuncios.valor', '>=', $params['valor_menor']);
+            });
         }
         if (isset( $params['valor_maior'] )) {
-            $search->where('anuncios.valor', '<=', $params['valor_maior']);
+            $search->where(function ($query) use ($params) {
+                $query->whereDoesntHave('anuncios')
+                    ->orWhere('anuncios.valor', '<=', $params['valor_maior']);
+            });
         }
         if (isset( $params['suites'] ) && ! empty( $params['suites'] )) {
             $search->where(function ($query) use ($params) {
