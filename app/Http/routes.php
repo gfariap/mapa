@@ -29,6 +29,7 @@ Route::get('/', function () {
 Route::group([ 'middleware' => [ 'web', 'auth' ] ], function () {
     Route::group([ 'prefix' => 'empreendimentos', 'as' => 'empreendimentos.' ], function () {
         Route::get('/', [ 'as' => 'index', 'uses' => 'EmpreendimentosController@index' ]);
+        Route::get('buscar', [ 'as' => 'search', 'uses' => 'EmpreendimentosController@search' ]);
         Route::get('incluir', [ 'as' => 'create', 'uses' => 'EmpreendimentosController@create' ]);
         Route::get('{id}/editar', [ 'as' => 'edit', 'uses' => 'EmpreendimentosController@edit' ]);
         Route::get('{id}', [ 'as' => 'show', 'uses' => 'EmpreendimentosController@show' ]);

@@ -4012,6 +4012,7 @@ $(document).ready(function () {
                 infoWindow: null,
                 currentMarker: null,
                 lista_quartos: [
+                    { text: 'Selecione uma opção', value: 0 },
                     { text: '1 quarto', value: 1 },
                     { text: '2 quartos', value: 2 },
                     { text: '3 quartos', value: 3 },
@@ -4019,6 +4020,7 @@ $(document).ready(function () {
                     { text: '5 quartos', value: 5 },
                 ],
                 lista_suites: [
+                    { text: 'Selecione uma opção', value: 0 },
                     { text: '1 suíte', value: 1 },
                     { text: '2 suítes', value: 2 },
                     { text: '3 suítes', value: 3 },
@@ -4026,6 +4028,7 @@ $(document).ready(function () {
                     { text: '5 suítes', value: 5 },
                 ],
                 lista_vagas: [
+                    { text: 'Selecione uma opção', value: 0 },
                     { text: '1 vaga de garagem', value: 1 },
                     { text: '2 vagas de garagem', value: 2 },
                     { text: '3 vagas de garagem', value: 3 },
@@ -4033,6 +4036,7 @@ $(document).ready(function () {
                     { text: '5 vagas de garagem', value: 5 },
                 ],
                 lista_aptos_andar: [
+                    { text: 'Selecione uma opção', value: 0 },
                     { text: '1 apartamento por andar', value: 1 },
                     { text: '2 apartamentos por andar', value: 2 },
                     { text: '3 apartamentos por andar', value: 3 },
@@ -4041,18 +4045,93 @@ $(document).ready(function () {
                     { text: '6 apartamentos por andar', value: 6 },
                 ],
                 lista_idades_projeto: [
+                    { text: 'Selecione uma opção', value: 0 },
                     { text: 'Menos de 10 anos', value: 1 },
                     { text: 'De 10 a 20 anos', value: 2 },
                     { text: 'De 20 a 30 anos', value: 3 },
                     { text: 'Mais 30 anos', value: 4 },
                 ],
                 lista_finalidades: [
-                    { text: 'Aluguel', value: 'aluguel' },
-                    { text: 'Compra', value: 'compra' },
+                    { text: 'Selecione uma opção', value: 0 },
+                    { text: 'Aquisição', value: 'compra' },
+                    { text: 'Locação', value: 'aluguel' },
                 ],
-                descricao_filtros: ''
+                quartos: 0,
+                area_menor: 0,
+                area_maior: 500,
+                suites: 0,
+                vagas: 0,
+                aptos_andar: 0,
+                idade: 0,
+                finalidade: 0,
+                valor_menor: 0,
+                valor_maior: 3000000,
+                simples: false,
+                avancado: false
+            },
+            filters: {
+                separator: function (value) {
+                    return value.replace('.', '_').replace(',', '.').replace('_', ',');
+                }
             },
             methods: {
+                numberFormat: function(number, decimal) {
+                    return number.toFixed(decimal).replace('.', ',').replace(/./g, function(c, i, a) {
+                        return i && c !== "," && ((a.length - i) % 3 === 0) ? '.' + c : c;
+                    });
+                },
+                pesquisar: function() {
+                    this.buscar();
+                    if (!this.avancado) {
+                        if (this.simples) {
+                            this.$set('avancado', true);
+                        }
+                        this.$set('simples', !this.simples);
+                    }
+                },
+                buscar: function () {
+                    var filtros = {};
+                    var that = this;
+                    filtros.quartos = this.quartos;
+                    filtros.area_menor = this.area_menor;
+                    filtros.area_maior = this.area_maior;
+                    filtros.valor_menor = this.valor_menor;
+                    filtros.valor_maior = this.valor_maior;
+                    if (this.avancado) {
+                        filtros.suites = this.suites;
+                        filtros.vagas = this.vagas;
+                        filtros.aptos_andar = this.aptos_andar;
+                        filtros.idade = this.idade;
+                        filtros.finalidade = this.finalidade;
+                    }
+                    $.get('empreendimentos/buscar', filtros, function (data) {
+                        that.deleteMarkers();
+                        var lista = JSON.parse(data);
+
+                        for (var i = 0; i < lista.length; i++) {
+                            that.addMarker(lista[i]);
+                        }
+                    });
+                },
+                limpar: function() {
+                    if (this.simples) {
+                        this.$set('quartos', 0);
+                        this.$set('area_menor', 0);
+                        this.$set('area_maior', 500);
+                        this.$set('valor_menor', 0);
+                        this.$set('valor_maior', 3000000);
+                    }
+                    if (this.avancado) {
+                        this.$set('suites', 0);
+                        this.$set('vagas', 0);
+                        this.$set('aptos_andar', 0);
+                        this.$set('idade', 0);
+                        this.$set('finalidade', 0);
+                        this.$set('avancado', false);
+                    }
+                    this.$set('simples', !this.simples);
+                    this.buscar();
+                },
                 addMarker: function (empreendimento) {
                     var marker = new google.maps.Marker({
                         position: {
@@ -4077,6 +4156,7 @@ $(document).ready(function () {
                             });
                             window.mapaImoveis.infoWindow.open(that.map, marker);
                             window.mapaImoveis.$set('currentMarker', marker);
+                            window.mapaImoveis.map.setCenter(marker.getPosition());
                         });
                     });
 
@@ -4180,6 +4260,8 @@ $(document).ready(function () {
                             $('.offcanvas').html('');
                         }
                     });
+
+                    $('.search-box').removeClass('hidden');
                 }
             }
         });

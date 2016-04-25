@@ -9579,6 +9579,7 @@ body.offcanvas-open #map {
   position: fixed;
   top: 30px;
   left: 30px;
+  width: 300px;
 }
 .search-box .closed {
   display: block;
@@ -9586,11 +9587,17 @@ body.offcanvas-open #map {
 .search-box .opened {
   display: none;
 }
-.search-box.open .closed {
-  display: none;
+.search-box .closed + .opened {
+  margin-top: 15px;
+  border-top: 1px solid #e8e8e8;
+  padding-top: 15px;
 }
-.search-box.open .opened {
+.search-box.avancado .opened,
+.search-box.simples .opened {
   display: block;
+}
+.search-box.simples .closed {
+  display: none;
 }
 body.stop-scrolling {
   height: 100%;
@@ -11193,6 +11200,29 @@ fieldset[disabled] .sweet-alert.confirma-exclusao button.confirm.focus {
 #fancybox-buttons a.btnDisabled {
   opacity: 0.4;
   cursor: default;
+}
+a.fancybox {
+  display: block;
+  position: relative;
+}
+a.fancybox .overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.25);
+  display: none;
+  text-align: center;
+}
+a.fancybox .overlay .overlay-text {
+  color: #ffffff;
+  display: block;
+  margin: 10px auto;
+}
+a.fancybox:hover .overlay,
+a.fancybox:focus .overlay {
+  display: block;
 }
 
 /*# sourceMappingURL=app.css.map */

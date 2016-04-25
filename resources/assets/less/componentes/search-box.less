@@ -2,6 +2,7 @@
   position: fixed;
   top: 30px;
   left: 30px;
+  width: 300px;
 
   .closed {
     display: block;
@@ -11,13 +12,21 @@
     display: none;
   }
 
-  &.open {
-    .closed {
-      display: none;
-    }
+  .closed + .opened {
+    margin-top: 15px;
+    border-top: 1px solid @corCinzaClaro;
+    padding-top: 15px;
+  }
 
+  &.avancado, &.simples {
     .opened {
       display: block;
+    }
+  }
+
+  &.simples {
+    .closed {
+      display: none;
     }
   }
 }

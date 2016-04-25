@@ -2,6 +2,11 @@
     <div class="col-sm-4 form-group">
         <a href="{{ asset($empreendimento->fachada_com_caminho) }}" class="fancybox" rel="gallery" title="{{ $empreendimento->nome }} - Fachada">
             <img src="{{ asset($empreendimento->fachada_thumbnail) }}" alt="{{ $empreendimento->nome }}">
+            <span class="overlay">
+                <span class="overlay-text">
+                    <i class="fa fa-camera"></i> Ver fotos
+                </span>
+            </span>
         </a>
     </div>
     <div class="col-sm-8 no-padding-left">
@@ -30,6 +35,11 @@
                     <div class="text-align-center form-group">
                         <a href="{{ asset($coluna->planta_com_caminho) }}" class="fancybox" rel="gallery" title="{{ $empreendimento->nome }} - {{ $coluna->titulo }}">
                             <img src="{{ asset($coluna->planta_thumbnail) }}" alt="{{ $coluna->titulo }}">
+                            <span class="overlay">
+                                <span class="overlay-text">
+                                    <i class="fa fa-camera"></i> Ver fotos
+                                </span>
+                            </span>
                         </a>
                     </div>
                     <div class="form-group">

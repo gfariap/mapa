@@ -6,8 +6,8 @@ use App\Empreendimento;
 use App\Http\Requests\EmpreendimentoFormRequest;
 use App\Services\ImageUploadService;
 use Illuminate\Http\Request;
-
 use App\Http\Requests;
+use Carbon\Carbon;
 
 class EmpreendimentosController extends Controller
 {
@@ -34,13 +34,78 @@ class EmpreendimentosController extends Controller
     }
 
 
+    public function search(Request $request)
+    {
+        $empreendimentos = $this->find($request->all(), false);
+
+        return str_replace("'", "\\u0027", json_encode($empreendimentos));
+    }
+
+
     private function find($params, $pagination = 10)
     {
-        $search = Empreendimento::orderBy($this->getOrderBy($params, 'id'),
-            $this->getOrder($params, 'desc'))->select([ 'empreendimentos.*' ]);
+        $search = Empreendimento::leftJoin('colunas', 'colunas.empreendimento_id', '=', 'empreendimentos.id')
+            ->leftJoin('anuncios', 'anuncios.coluna_id', '=', 'colunas.id')
+            ->orderBy($this->getOrderBy($params, 'id'), $this->getOrder($params, 'desc'))
+            ->select([ 'empreendimentos.*' ]);
 
         if (isset( $params['nome'] ) && ! empty( $params['nome'] )) {
             $search->where('nome', 'like', '%' . $params['nome'] . '%');
+        }
+        if (isset( $params['quartos'] ) && ! empty( $params['quartos'] )) {
+            $search->where(function ($query) use ($params) {
+                $query->where('colunas.quartos', '=', $params['quartos'])
+                    ->orWhere('anuncios.quartos', '=', $params['quartos']);
+            });
+        }
+        if (isset( $params['area_menor'] )) {
+            $search->where('colunas.area', '>=', $params['area_menor']);
+        }
+        if (isset( $params['area_maior'] )) {
+            $search->where('colunas.area', '<=', $params['area_maior']);
+        }
+        if (isset( $params['valor_menor'] )) {
+            $search->where('anuncios.valor', '>=', $params['valor_menor']);
+        }
+        if (isset( $params['valor_maior'] )) {
+            $search->where('anuncios.valor', '<=', $params['valor_maior']);
+        }
+        if (isset( $params['suites'] ) && ! empty( $params['suites'] )) {
+            $search->where(function ($query) use ($params) {
+                $query->where('colunas.suites', '=', $params['suites'])
+                    ->orWhere('anuncios.suites', '=', $params['suites']);
+            });
+        }
+        if (isset( $params['vagas'] ) && ! empty( $params['vagas'] )) {
+            $search->where(function ($query) use ($params) {
+                $query->where('colunas.garagem', '=', $params['vagas'])
+                    ->orWhere('anuncios.garagem', '=', $params['vagas']);
+            });
+        }
+        if (isset( $params['idade'] ) && ! empty( $params['idade'] )) {
+            $year = Carbon::now()->year;
+            switch ($params['idade']) {
+                case 1:
+                    $search->where('construido_em', '>', $year - 10);
+                    break;
+                case 2:
+                    $search->where('construido_em', '>', $year - 20)
+                        ->where('construido_em', '<=', $year - 10);
+                    break;
+                case 3:
+                    $search->where('construido_em', '>', $year - 30)
+                        ->where('construido_em', '<=', $year - 20);
+                    break;
+                case 4:
+                    $search->where('construido_em', '<=', $year - 30);
+                    break;
+            }
+        }
+        if (isset( $params['aptos_andar'] ) && ! empty( $params['aptos_andar'] )) {
+            $search->where('apartamentos_andar', '=', $params['aptos_andar']);
+        }
+        if (isset( $params['finalidade'] ) && ! empty( $params['finalidade'] )) {
+            $search->where('finalidade', '=', $params['finalidade']);
         }
         if ($pagination) {
             return $search->paginate($pagination);
