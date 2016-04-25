@@ -49,7 +49,8 @@ class EmpreendimentosController extends Controller
             ->whereNull('colunas.deleted_at')
             ->whereNull('anuncios.deleted_at')
             ->orderBy($this->getOrderBy($params, 'id'), $this->getOrder($params, 'desc'))
-            ->select([ 'empreendimentos.*' ]);
+            ->select([ 'empreendimentos.*' ])
+            ->distinct();
 
         if (isset( $params['nome'] ) && ! empty( $params['nome'] )) {
             $search->where('nome', 'like', '%' . $params['nome'] . '%');
