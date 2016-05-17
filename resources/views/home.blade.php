@@ -91,6 +91,5 @@
 @section('scripts')
     <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyAH5PTMGYtr1P7H4ydMJnmGXsvy5Q9RjLc"
     ></script>
-    <script type="text/javascript"
-            src="https://google-maps-utility-library-v3.googlecode.com/svn/trunk/maplabel/src/maplabel-compiled.js"></script>
+    <script src="{{ asset('js/maplabel.js') }}"></script>
 @endsection
